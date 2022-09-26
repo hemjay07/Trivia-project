@@ -113,6 +113,24 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,404)
         self.assertEqual(data["success"],False)
 
+    """
+   ________________________________________________________________________________________________       
+    NEW QUESTIONS
+    ____________________________________________________________________________________________________       
+    """
+    def test_post_new_question(self):
+        response = self.client().post("/questions",json={"question":"which is more important in learning a new thing, consistency or intensity","answer":"consistency","difficulty":2,"category":1})
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(data["success"],True)
+        self.assertTrue(data["questions"])
+    
+    def test_400_error_posting_new_question(self):
+        response = self.client().post("/questions")
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code,400)
+        self.assertEqual(data["success"],False)
+
 
     """
    ________________________________________________________________________________________________       

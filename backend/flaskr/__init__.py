@@ -22,7 +22,7 @@ def create_app(test_config=None):
     setup_db(app)
 
     """
-    @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
+    DONE: Set up CORS. Allow '*' for origins. Delete the sample route after completing the task
 
     """
     CORS(app, resources={r"/*": {"origin": "*"}})
@@ -38,11 +38,11 @@ def create_app(test_config=None):
         return response
 
     """
-    @TODO: Use the after_request decorator to set Access-Control-Allow
+    DONE: Use the after_request decorator to set Access-Control-Allow
     """
 
     """
-    @TODO:
+    DONE:
     Create an endpoint to handle GET requests
     for all available categories.
     """
@@ -181,7 +181,7 @@ def create_app(test_config=None):
             abort(400)
 
     """
-    @TODO:
+    DONE:
     Create a POST endpoint to get questions to play the quiz.
     This endpoint should take category and previous question parameters
     and return a random questions within the given category,
@@ -231,7 +231,7 @@ def create_app(test_config=None):
             abort(400)
 
     """
-    @TODO:
+    DONE:
     Create error handlers for all expected errors
     including 404 and 422.
     """
@@ -251,10 +251,17 @@ def create_app(test_config=None):
             jsonify({"success": False, "error": 404, "message": "not found"}), 404)
 
     @app.errorhandler(422)
+    @app.errorhandler(422)
     def unprocessable(error):
         return (jsonify({"success": False,
                          "error": "unprocessable",
                          "message": "unprocessable"}),
                 422)
+
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return (jsonify({"sucess": False,
+                        "error": 500,
+                         "message": "internal server error"}), 500)
 
     return app
